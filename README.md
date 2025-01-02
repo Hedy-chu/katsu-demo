@@ -37,23 +37,23 @@ yarn build:watch
 
 ## Used as a package used
 
+### Use as local dependency
+
+```shell
+# Using this project
+yarn add file:<path-to-this-project>
+```
+
 ### Dev watch mode
 
 ```shell
 # Under this project
+yarn link
 yarn build:watch
 
 # Other project using this project
-yarn link <path-to-this-project>
+yarn link <package-name>
 ```
 
-### Production mode
 
-```shell
-# In this project
-yarn build:prod
-
-# Using this project
-yarn add file:<path-to-this-project>
-```
 
