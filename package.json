@@ -39,6 +39,7 @@
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "tsup": "^8.3.5",
+    "typechain": "^8.3.2",
     "typescript": "^5.2.2",
     "yalc": "^1.0.0-pre.53"
   },
@@ -49,9 +50,11 @@
     "test": "jest",
     "lint": "eslint . --ext .ts,.tsx",
     "lint-fix": "eslint . --ext .ts,.tsx --fix",
-    "start": "ts-node -r tsconfig-paths/register src/scripts/index.ts"
+    "start": "ts-node -r tsconfig-paths/register src/scripts/index.ts",
+    "typechain": "typechain --out-dir src/types/contracts --target ethers-v6 'src/abi/*.json'"
   },
   "dependencies": {
+    "@typechain/ethers-v6": "^0.5.1",
     "dotenv": "^16.4.7",
     "ethers": "^6.13.5"
   }

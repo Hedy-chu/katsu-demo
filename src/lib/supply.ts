@@ -22,6 +22,7 @@ export async function supplyWithPermit() {
   let tx;
 
   try {
+    // tx = await Pool.supplyWithPermit(DAI_ADDRESS, amount, owner, referralCode, deadline, permit.v, permit.r, permit.s);
     tx = await poolContract.supplyWithPermit(
       DAI_ADDRESS,
       amount,
@@ -35,6 +36,9 @@ export async function supplyWithPermit() {
     console.log('tx hash:', tx.hash);
 
     const receipt = await tx.wait();
+    if (!receipt) {
+      throw new Error('Transaction failed - no receipt');
+    }
     console.log('receipt:', receipt.blockNumber);
   } catch (err: any) {
     console.log('err:', err);

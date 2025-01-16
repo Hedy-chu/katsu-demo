@@ -8,7 +8,7 @@ export async function borrow(amount: bigint) {
   const decimals = await tokenContract.decimals();
   const { availableBorrowsBase } = userAccountData;
 
-  const availableBorrows = parseUnits(availableBorrowsBase.toString(), decimals) / parseUnits('1', 8); 
+  const availableBorrows = parseUnits(availableBorrowsBase.toString(), decimals) / parseUnits('1', 8);
   console.log('availableBorrows:', availableBorrows.toString());
   if (availableBorrows < amount) {
     throw new Error('Insufficient available borrows');
