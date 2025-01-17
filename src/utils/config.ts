@@ -19,6 +19,7 @@ export const DATA_PROVIDER_ADDRESS = process.env.DATA_PROVIDER_ADDRESS || '';
 export const ORACLE_ADDRESS = process.env.ORACLE_ADDRESS || '';
 export const WRAPPED_TOKEN_GATEWAYV3_ADDRESS = process.env.WRAPPED_TOKEN_GATEWAYV3_ADDRESS || '';
 export const POOL_ADDRESSES_PROVIDER = process.env.POOL_ADDRESSES_PROVIDER || '';
+export const FAUCET_ADDRESS = process.env.FAUCET_ADDRESS || '';
 
 if (!RPC_URL || !PRIVATE_KEY) {
   throw new Error('Please set RPC_URL and PRIVATE_KEY in your .env file');
@@ -35,6 +36,7 @@ const oraclePath = path.join(__dirname, '..', 'abi', 'AaveOracle.json');
 const wrappedTokenGatewayV3Path = path.join(__dirname, '..', 'abi', 'WrappedTokenGatewayV3.json');
 const variableDebtTokenPath = path.join(__dirname, '..', 'abi', 'VariableDebtToken.json');
 const aTokenPath = path.join(__dirname, '..', 'abi', 'AToken.json');
+const faucetPath = path.join(__dirname, '..', 'abi', 'Faucet.json');
 
 export const poolAbi = JSON.parse(fs.readFileSync(poolAbiPath, 'utf8'));
 export const erc20Abi = JSON.parse(fs.readFileSync(erc20AbiPath, 'utf8'));
@@ -44,11 +46,13 @@ export const oracleAbi = JSON.parse(fs.readFileSync(oraclePath, 'utf8'));
 export const wrappedTokenGatewayV3Abi = JSON.parse(fs.readFileSync(wrappedTokenGatewayV3Path, 'utf8'));
 export const variableDebtTokenAbi = JSON.parse(fs.readFileSync(variableDebtTokenPath, 'utf8'));
 export const aTokenAbi = JSON.parse(fs.readFileSync(aTokenPath, 'utf8'));
+export const faucetAbi = JSON.parse(fs.readFileSync(faucetPath, 'utf8'));
 
 export const tokenContract = new ethers.Contract(DAI_ADDRESS, erc20Abi, signer) as any;
 export const wipContract = new ethers.Contract(WIP_ADDRESS, erc20Abi, signer) as any;
 export const poolContract = new ethers.Contract(POOL_ADDRESS, poolAbi, signer) as any;
 export const oracleContract = new ethers.Contract(ORACLE_ADDRESS, oracleAbi, signer) as any;
+export const faucetContract = new ethers.Contract(FAUCET_ADDRESS, faucetAbi, signer) as any;
 export const wrappedTokenGatewayContract = new ethers.Contract(
   WRAPPED_TOKEN_GATEWAYV3_ADDRESS,
   wrappedTokenGatewayV3Abi,
