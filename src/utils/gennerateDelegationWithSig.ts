@@ -24,7 +24,6 @@ export async function generateDelegationPermit(
   const nonce: number = Number(nonceBigInt);
 
   const name: string = await tokenContract.name();
-  //   const version: string = await token.version();
   const version: string = ethers.toUtf8String(await tokenContract.EIP712_REVISION()); // mainnet use version func
   const { chainId } = await provider.getNetwork();
   const tokenAddress = await token.getAddress();
