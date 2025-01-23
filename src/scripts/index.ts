@@ -6,10 +6,11 @@
 // import { supplyIP } from '@/lib/supplyIP';
 // import { borrowIP } from '@/lib/borrowIP';
 // import { withdrawIP } from '@/lib/withdrawIP';
-// import { repayIP } from '@/lib/repayIP';
+import { repayIP } from '@/lib/repayIP';
 // import { getInterstRate } from '@/lib/interstRate';
 // import { withdrawIPWithPermit } from '@/lib/withdrawIPWithPermit';
-import { borrowPermit } from '@/lib/borrowPermit';
+// import { borrowPermit } from '@/lib/borrowPermit';
+// import { configInsentiveAssets } from '@/lib/configInsentiveAssets';
 
 // supplyWithPermit();
 // borrow(parseUnits('1', 10));
@@ -17,7 +18,8 @@ import { borrowPermit } from '@/lib/borrowPermit';
 // supplyIP();
 // borrowIP();
 // withdrawIP();
-// repayIP();
+repayIP();
 // getInterstRate();
 // withdrawIPWithPermit();
-borrowPermit();
+// borrowPermit();
+// configInsentiveAssets();
