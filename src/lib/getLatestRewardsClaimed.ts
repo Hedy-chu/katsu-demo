@@ -44,7 +44,7 @@ export async function getLatestRewardsClaimed(): Promise<RewardsClaimedEvent | n
     return null;
   }
 
-  const block = await provider.getBlock(latestEvent?.blockNumber);
+  const block = await provider.getBlock(latestEvent.blockNumber);
   if (!block) {
     throw new Error('Block not found');
   }
