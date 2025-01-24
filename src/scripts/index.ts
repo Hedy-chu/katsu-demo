@@ -6,11 +6,14 @@
 // import { supplyIP } from '@/lib/supplyIP';
 // import { borrowIP } from '@/lib/borrowIP';
 // import { withdrawIP } from '@/lib/withdrawIP';
-import { repayIP } from '@/lib/repayIP';
+// import { repayIP } from '@/lib/repayIP';
 // import { getInterstRate } from '@/lib/interstRate';
 // import { withdrawIPWithPermit } from '@/lib/withdrawIPWithPermit';
 // import { borrowPermit } from '@/lib/borrowPermit';
 // import { configInsentiveAssets } from '@/lib/configInsentiveAssets';
+// import { claimReward } from '@/lib/claimReward';
+// import { claimAllReward } from '@/lib/claimAllRewards';
+import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
 
 // supplyWithPermit();
 // borrow(parseUnits('1', 10));
@@ -18,8 +21,11 @@ import { repayIP } from '@/lib/repayIP';
 // supplyIP();
 // borrowIP();
 // withdrawIP();
-repayIP();
+// repayIP();
 // getInterstRate();
 // withdrawIPWithPermit();
 // borrowPermit();
 // configInsentiveAssets();
+// claimReward();
+// claimAllReward();
+getLatestRewardsClaimed();

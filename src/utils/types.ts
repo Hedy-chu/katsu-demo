@@ -10,3 +10,30 @@ export interface AggregatedReserveData {
   variableRateSlope2: string;
   optimalUsageRatio: string;
 }
+
+export interface AggregatedReserveIncentiveData {
+  underlyingAsset: string;
+  aIncentiveData: IncentiveData;
+  vIncentiveData: IncentiveData;
+  sIncentiveData: IncentiveData;
+}
+
+export interface IncentiveData {
+  tokenAddress: string;
+  incentiveControllerAddress: string;
+  rewardsTokenInformation: RewardInfo[];
+}
+
+export interface RewardInfo {
+  rewardTokenSymbol: string;
+  rewardTokenAddress: string;
+  rewardOracleAddress: string;
+  emissionPerSecond: bigint;
+  incentivesLastUpdateTimestamp: bigint;
+  tokenIncentivesIndex: bigint;
+  emissionEndTimestamp: bigint;
+  rewardPriceFeed: bigint;
+  rewardTokenDecimals: number;
+  precision: number;
+  priceFeedDecimals: number;
+}

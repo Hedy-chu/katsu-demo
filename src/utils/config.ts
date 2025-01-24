@@ -31,6 +31,7 @@ export const REW_ORACLE = process.env.REW_ORACLE || '';
 export const WIP_ATOKEN = process.env.WIP_ATOKEN || '';
 export const DAI_ATOKEN = process.env.DAI_ATOKEN || '';
 export const UI_INCENTIVEDATA_PROVIDER = process.env.UI_INCENTIVEDATA_PROVIDER || '';
+export const WIP_VARIABLEDEBT_TOKEN = process.env.WIP_VARIABLEDEBT_TOKEN || '';
 
 if (!RPC_URL || !PRIVATE_KEY) {
   throw new Error('Please set RPC_URL and PRIVATE_KEY in your .env file');
