@@ -53,9 +53,11 @@ export async function getLatestRewardsClaimed(): Promise<RewardsClaimedEvent | n
 
   console.log('Latest RewardsClaimed Event:');
   console.log(`User: ${latestEvent.user}`);
-  console.log(`Reward: ${latestEvent.reward}`);
+  console.log(`Reward: ${latestEvent.reward}`); // reward 地址
   console.log(`To: ${latestEvent.to}`);
   console.log(`Claimer: ${latestEvent.claimer}`);
+  // Amount：领取的最小单位，没有精度处理，需要通过reward获得decimals，然后除以10**decimals，再乘以amount，得到领取的数量
+  // 再通过oracle获得usd价格，乘以数量，得到领取的usd金额
   console.log(`Amount: ${latestEvent.amount.toString()}`);
   console.log(`Last ClaimTime: ${timestamp}`);
 
