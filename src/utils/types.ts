@@ -6,6 +6,9 @@ export enum RateMode {
 
 export interface AggregatedReserveData {
   underlyingAsset: string;
+  decimals: number;
+  availableLiquidity: string;
+  priceInMarketReferenceCurrency: string;
   variableRateSlope1: string;
   variableRateSlope2: string;
   optimalUsageRatio: string;

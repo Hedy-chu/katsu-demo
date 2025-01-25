@@ -17,6 +17,7 @@ export async function claimAllReward() {
     }
   });
   // REW_ADDRESS reward token address
+  console.log('asset:', asset);
   const tx = await rewardsControllerContract.claimAllRewardsToSelf(asset);
   console.log('tx hash:', tx.hash);
 }

@@ -13,7 +13,7 @@ not supports:supply
 export async function supplyWithPermit() {
   const owner = signer.address;
   const spender = POOL_ADDRESS;
-  const amount = ethers.parseUnits('100.0', 8);
+  const amount = ethers.parseUnits('10', 18);
   // const amount = 0;
   const referralCode = 0;
   const deadline = Math.floor(Date.now() / 1000) + 3600;

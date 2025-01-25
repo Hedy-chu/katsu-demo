@@ -14,6 +14,7 @@
 // import { claimReward } from '@/lib/claimReward';
 // import { claimAllReward } from '@/lib/claimAllRewards';
 import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
+// import { calculateDAIIncentiveAPR } from '@/lib/calculateAssetIncentiveAPR';
 
 // supplyWithPermit();
 // borrow(parseUnits('1', 10));
@@ -29,3 +30,4 @@ import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
 // claimReward();
 // claimAllReward();
 getLatestRewardsClaimed();
+// calculateDAIIncentiveAPR();
