@@ -27,8 +27,8 @@ export async function calculateDAIIncentiveAPR() {
   if (daiIncentivesData.aIncentiveData.rewardsTokenInformation.length > 0) {
     rewardTokenInfos.push(...daiIncentivesData.aIncentiveData.rewardsTokenInformation);
   }
-  if (daiIncentivesData.sIncentiveData.rewardsTokenInformation.length > 0) {
-    rewardTokenInfos.push(...daiIncentivesData.sIncentiveData.rewardsTokenInformation);
+  if (daiIncentivesData.vIncentiveData.rewardsTokenInformation.length > 0) {
+    rewardTokenInfos.push(...daiIncentivesData.vIncentiveData.rewardsTokenInformation);
   }
   calculateAssetIncentiveAPR(rewardTokenInfos, daiInfo);
 }
