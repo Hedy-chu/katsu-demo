@@ -1,4 +1,6 @@
 // import { parseUnits } from 'ethers';
+import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
+import { signer } from '@/utils/config';
 
 // import { borrow } from '@/lib/borrow';
 // import { repay } from '@/lib/repay';
@@ -13,7 +15,6 @@
 // import { configInsentiveAssets } from '@/lib/configInsentiveAssets';
 // import { claimReward } from '@/lib/claimReward';
 // import { claimAllReward } from '@/lib/claimAllRewards';
-import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
 // import { calculateDAIIncentiveAPR } from '@/lib/calculateAssetIncentiveAPR';
 
 // supplyWithPermit();
@@ -29,5 +30,5 @@ import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
 // configInsentiveAssets();
 // claimReward();
 // claimAllReward();
-getLatestRewardsClaimed();
+getLatestRewardsClaimed(signer.address);
 // calculateDAIIncentiveAPR();

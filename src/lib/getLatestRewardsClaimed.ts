@@ -8,23 +8,13 @@ interface RewardsClaimedEvent {
   amount: bigint;
 }
 // txhash 0x7505588c532b7285794de72fef695b14244b1775d797e446ff89338793a407f3
-export async function getLatestRewardsClaimed(): Promise<RewardsClaimedEvent | null> {
-  const filter = rewardsControllerContract.filters.RewardsClaimed();
-  let blockNumber = 10000;
-  let find = true;
-  let events;
+export async function getLatestRewardsClaimed(userAddress: string): Promise<RewardsClaimedEvent | null> {
+  const filter = rewardsControllerContract.filters.RewardsClaimed(userAddress);
 
-  while (find) {
-    events = await rewardsControllerContract.queryFilter(filter, blockNumber);
-    if (events.length > 0) {
-      find = false;
-    } else {
-      blockNumber -= 10000;
-      if (blockNumber < 0) {
-        console.log('No RewardsClaimed events found.');
-        return null;
-      }
-    }
+  const events = await rewardsControllerContract.queryFilter(filter);
+  if (events.length <= 0) {
+    console.log('No RewardsClaimed events found.');
+    return null;
   }
   console.log(`Found ${events.length} RewardsClaimed events .`);
 
@@ -61,6 +51,7 @@ export async function getLatestRewardsClaimed(): Promise<RewardsClaimedEvent | n
   }
   const { timestamp } = block;
   latestEvent = latestEvent.args as RewardsClaimedEvent;
+  console.log(allEvents);
 
   for (let index = 0; index < allEvents.length; index++) {
     const event = allEvents[index];
