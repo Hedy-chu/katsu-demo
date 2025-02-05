@@ -60,7 +60,7 @@ export async function liquidation() {
 
   const daiBalance = await tokenContract.balanceOf(signer.address);
   if (daiBalance <= 0) {
-    return;
+    // check other reserve
   }
 
   const userReserveDataBefore = await dataProviderContract.getUserReserveData(DAI_ADDRESS, borrower);
@@ -79,12 +79,9 @@ export async function liquidation() {
   // get liquidate collateral
   // get each reserve currentATokenBalance balance
   // reserve must isUsingAsCollateral true
-  if (userReserveDataBefore.usageAsCollateralEnabled === false) {
-    // return;
-  }
   const userWethReserveData = await dataProviderContract.getUserReserveData(WETH_ADDRESS, borrower);
   const userWethBalance = userWethReserveData.currentATokenBalance;
-  // if (userWethBalance <= 0) {
+  // if (userWethBalance <= 0 || userWethBalance.usageAsCollateralEnabled === false) {
   //  check other collateral
   // }
   // Calculate amountToLiquidate
