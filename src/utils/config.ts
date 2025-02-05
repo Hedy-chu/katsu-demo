@@ -8,6 +8,11 @@ import { ethers } from 'ethers';
 dotenv.config();
 
 export const MAX_UINT_AMOUNT = '115792089237316195423570985008687907853269984665640564039457584007913129639935';
+export const CLOSE_FACTOR_HF_THRESHOLD = 0.95e18;
+export const MAX_LIQUIDATION_CLOSE_FACTOR = 1e4;
+export const DEFAULT_LIQUIDATION_CLOSE_FACTOR = 0.5e4;
+export const FACTOR = 1e4;
+export const HEALTH_FACTOR_LIQUIDATION_THRESHOLD = 1e18;
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const RPC_URL = process.env.RPC_URL || '';
@@ -15,6 +20,8 @@ export const PRIVATE_KEY = process.env.PRIVATE_KEY || '';
 export const POOL_ADDRESS = process.env.POOL_ADDRESS || '';
 export const DAI_ADDRESS = process.env.DAI_ADDRESS || '';
 export const WIP_ADDRESS = process.env.WIP_ADDRESS || '';
+export const USDC_ADDRESS = process.env.USDC_ADDRESS || '';
+export const WETH_ADDRESS = process.env.WETH_ADDRESS || '';
 export const UI_POOL_DATA_PROVIDER_ADDRESS = process.env.UI_POOL_DATA_PROVIDER_ADDRESS || '';
 export const DATA_PROVIDER_ADDRESS = process.env.DATA_PROVIDER_ADDRESS || '';
 export const ORACLE_ADDRESS = process.env.ORACLE_ADDRESS || '';
@@ -32,6 +39,9 @@ export const WIP_ATOKEN = process.env.WIP_ATOKEN || '';
 export const DAI_ATOKEN = process.env.DAI_ATOKEN || '';
 export const UI_INCENTIVEDATA_PROVIDER = process.env.UI_INCENTIVEDATA_PROVIDER || '';
 export const WIP_VARIABLEDEBT_TOKEN = process.env.WIP_VARIABLEDEBT_TOKEN || '';
+export const USDC_TESTNET_PRICE_AGGREGATO = process.env.USDC_TESTNET_PRICE_AGGREGATO || '';
+export const WETH_TESTNET_PRICE_AGGREGATO = process.env.WETH_TESTNET_PRICE_AGGREGATO || '';
+export const DAI_TESTNET_PRICE_AGGREGATO = process.env.DAI_TESTNET_PRICE_AGGREGATO || '';
 
 if (!RPC_URL || !PRIVATE_KEY) {
   throw new Error('Please set RPC_URL and PRIVATE_KEY in your .env file');
@@ -52,6 +62,7 @@ const faucetPath = path.join(__dirname, '..', 'abi', 'Faucet.json');
 const rewardsControllerPath = path.join(__dirname, '..', 'abi', 'RewardsController.json');
 const emissionManagerPath = path.join(__dirname, '..', 'abi', 'EmissionManager.json');
 const uiIncentiveDataProviderV3Path = path.join(__dirname, '..', 'abi', 'UiIncentiveDataProviderV3.json');
+const priceAggregatoPath = path.join(__dirname, '..', 'abi', 'MockAggregator.json');
 
 export const poolAbi = JSON.parse(fs.readFileSync(poolAbiPath, 'utf8'));
 export const erc20Abi = JSON.parse(fs.readFileSync(erc20AbiPath, 'utf8'));
@@ -65,13 +76,33 @@ export const faucetAbi = JSON.parse(fs.readFileSync(faucetPath, 'utf8'));
 export const emissionManagerAbi = JSON.parse(fs.readFileSync(emissionManagerPath, 'utf8'));
 export const rewardsControllerAbi = JSON.parse(fs.readFileSync(rewardsControllerPath, 'utf8'));
 export const uiIncentiveDataProviderV3Abi = JSON.parse(fs.readFileSync(uiIncentiveDataProviderV3Path, 'utf8'));
+export const priceAggregatoAbi = JSON.parse(fs.readFileSync(priceAggregatoPath, 'utf8'));
 
 export const tokenContract = new ethers.Contract(DAI_ADDRESS, erc20Abi, signer) as any;
+export const usdcContract = new ethers.Contract(USDC_ADDRESS, erc20Abi, signer) as any;
 export const wipContract = new ethers.Contract(WIP_ADDRESS, erc20Abi, signer) as any;
+export const wethContract = new ethers.Contract(WETH_ADDRESS, erc20Abi, signer) as any;
 export const poolContract = new ethers.Contract(POOL_ADDRESS, poolAbi, signer) as any;
 export const oracleContract = new ethers.Contract(ORACLE_ADDRESS, oracleAbi, signer) as any;
 export const faucetContract = new ethers.Contract(FAUCET_ADDRESS, faucetAbi, signer) as any;
 export const emissionManagerContract = new ethers.Contract(EMISSION_MANAGER, emissionManagerAbi, signer) as any;
+export const usdcPriceAggregatoContract = new ethers.Contract(
+  USDC_TESTNET_PRICE_AGGREGATO,
+  priceAggregatoAbi,
+  signer,
+) as any;
+export const daiPriceAggregatoContract = new ethers.Contract(
+  DAI_TESTNET_PRICE_AGGREGATO,
+  priceAggregatoAbi,
+  signer,
+) as any;
+
+export const wethPriceAggregatoContract = new ethers.Contract(
+  WETH_TESTNET_PRICE_AGGREGATO,
+  priceAggregatoAbi,
+  signer,
+) as any;
+
 export const uiIncentiveDataProviderV3Contract = new ethers.Contract(
   UI_INCENTIVEDATA_PROVIDER,
   uiIncentiveDataProviderV3Abi,

@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 
-import { signer, POOL_ADDRESS, DAI_ADDRESS, tokenContract, poolContract } from '@/utils/config';
+import { signer, POOL_ADDRESS, poolContract, erc20Abi } from '@/utils/config';
 import { generatePermit } from '@/utils/generatePermit';
 
 // supply process
@@ -10,13 +10,14 @@ supports:supplyWithPermit
 not supports:supply
 */
 
-export async function supplyWithPermit() {
+export async function supplyWithPermit(tokenAddress: string, amount: bigint) {
   const owner = signer.address;
   const spender = POOL_ADDRESS;
-  const amount = ethers.parseUnits('10', 18);
+  // const amount = ethers.parseUnits('10', 18);
   // const amount = 0;
   const referralCode = 0;
   const deadline = Math.floor(Date.now() / 1000) + 3600;
+  const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, signer) as any;
 
   const permit = await generatePermit(tokenContract, owner, spender, amount, deadline);
   let tx;
@@ -24,7 +25,7 @@ export async function supplyWithPermit() {
   try {
     // tx = await Pool.supplyWithPermit(DAI_ADDRESS, amount, owner, referralCode, deadline, permit.v, permit.r, permit.s);
     tx = await poolContract.supplyWithPermit(
-      DAI_ADDRESS,
+      tokenAddress,
       amount,
       owner,
       referralCode,
