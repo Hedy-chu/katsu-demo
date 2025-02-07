@@ -103,7 +103,7 @@ export async function liquidation() {
 
   let amountToLiquidate =
     (maxLiquidatableDebt / daiDecimals) * daiPrice > (userWethBalance / wethDecimals) * wethPrice
-      ? ((userWethBalance / wethDecimals) * wethPrice) / daiPrice
+      ? (userWethBalance / wethDecimals) * daiDecimals
       : maxLiquidatableDebt;
   console.log(
     `maxLiquidatableDebt: ${maxLiquidatableDebt}, daiPrice: ${daiPrice}, userWethBalance: ${userWethBalance}, wethPrice: ${wethPrice}`,
