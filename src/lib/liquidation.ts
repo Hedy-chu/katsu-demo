@@ -5,6 +5,7 @@ import { supplyWithPermit } from '@/lib/supply';
 import {
   signer,
   USDC_ADDRESS,
+  usdcContract,
   DAI_ADDRESS,
   WETH_ADDRESS,
   POOL_ADDRESS,
@@ -21,13 +22,15 @@ import {
   HEALTH_FACTOR_LIQUIDATION_THRESHOLD,
 } from '@/utils/config';
 
-const borrower = '0xbfb8b84886d6277c997a01f58a29647ef832159c';
+const borrower = '';
 export async function preLiquidation() {
   // supply
-  const amountUSDCtoDeposit = ethers.parseEther('100');
+  const usdcDecimals = await usdcContract.decimals();
+  console.log('usdcDecimals:', usdcDecimals);
+  const amountUSDCtoDeposit = ethers.parseUnits('100', usdcDecimals);
   const supplyUsdc = await supplyWithPermit(USDC_ADDRESS, amountUSDCtoDeposit);
   console.log('supplyUsdc tx:', supplyUsdc);
-  const amountETHtoDeposit = ethers.parseEther('0.06775');
+  const amountETHtoDeposit = ethers.parseEther('0.006775');
   const supplyWeth = await supplyWithPermit(WETH_ADDRESS, amountETHtoDeposit);
   console.log('supplyWeth tx:', supplyWeth);
 
@@ -41,22 +44,29 @@ export async function preLiquidation() {
   // borrow
   console.log('userGlobalData.availableBorrowsBase:', userGlobalData.availableBorrowsBase);
   console.log(toBigInt(userGlobalData.availableBorrowsBase));
-  const borrowAmount = (toBigInt(userGlobalData.availableBorrowsBase) * 5000n) / 10000n / daiPrice;
+  const borrowAmount = (toBigInt(userGlobalData.availableBorrowsBase) * 2000n) / 10000n / daiPrice;
   const daiDecimals = await tokenContract.decimals();
   const amountDAIToBorrow = ethers.parseUnits(borrowAmount.toString(), daiDecimals);
+  console.log('amountDAIToBorrow:', amountDAIToBorrow);
   const borrowTx = await borrow(DAI_ADDRESS, amountDAIToBorrow);
   console.log('borrowTx:', borrowTx);
 
   // drop HF < 1
-  const daiUpdatePriceTx = await daiPriceAggregatoContract.updatePrice(ethers.parseUnits('2', 8));
-  console.log('daiUpdatePriceTx:', daiUpdatePriceTx.hash);
-  const userGlobalDataBefore = await poolContract.getUserAccountData(borrower);
+  const daiUpdatePriceTx = await daiPriceAggregatoContract.updatePrice(ethers.parseUnits('5.5', 8));
+  const receipt = await daiUpdatePriceTx.wait();
+  if (receipt.status === 1) {
+    console.log('daiUpdatePriceTx:', daiUpdatePriceTx.hash);
+  }
+  const userGlobalDataBefore = await poolContract.getUserAccountData(signer.address);
   console.log('userGlobalDataBefore.healthFactor:', userGlobalDataBefore.healthFactor);
 }
 
 export async function liquidation() {
   const approveTx = await tokenContract.approve(POOL_ADDRESS, ethers.MaxUint256);
-  console.log('approveTx:', approveTx.hash);
+  const approveReceipt = await approveTx.wait();
+  if (approveReceipt.status === 1) {
+    console.log('approveTx:', approveTx.hash);
+  }
 
   const daiBalance = await tokenContract.balanceOf(signer.address);
   if (daiBalance <= 0) {
@@ -109,7 +119,10 @@ export async function liquidation() {
     amountToLiquidate,
     false,
   );
-  console.log('liquidationTx:', liquidationTx.hash);
+  const liquidationReceipt = await liquidationTx.wait();
+  if (liquidationReceipt.status === 1) {
+    console.log('liquidationTx:', liquidationTx.hash);
+  }
 
   const userReserveDataAfter = await dataProviderContract.getUserReserveData(DAI_ADDRESS, borrower);
   console.log('userReserveDataAfter:', userReserveDataAfter);

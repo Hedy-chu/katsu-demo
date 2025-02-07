@@ -36,5 +36,8 @@ export async function claimReward() {
   // REW_ADDRESS reward token address
 
   const txToSelf = await rewardsControllerContract.claimRewardsToSelf(asset, amount, REW_ADDRESS);
-  console.log('txToSelf hash:', txToSelf.hash);
+  const receipt = await txToSelf.wait();
+  if (receipt.status === 1) {
+    console.log('txToSelf hash:', txToSelf.hash);
+  }
 }

@@ -30,5 +30,8 @@ export async function borrowPermit() {
     permit.r,
     permit.s,
   );
-  console.log('approveTx hash:', approveTx.hash);
+  const receipt = await approveTx.wait();
+  if (receipt.status === 1) {
+    console.log('approveTx hash:', approveTx.hash);
+  }
 }

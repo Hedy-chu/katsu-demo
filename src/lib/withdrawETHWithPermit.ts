@@ -7,14 +7,14 @@ import {
   WRAPPED_TOKEN_GATEWAYV3_ADDRESS,
   dataProviderContract,
   aTokenAbi,
+  MAX_UINT_AMOUNT,
 } from '../utils/config';
 import { generatePermit } from '../utils/generatePermit';
 
-export async function withdrawIPWithPermit() {
+export async function withdrawETHWithPermit() {
   const owner = signer.address;
   const spender = WRAPPED_TOKEN_GATEWAYV3_ADDRESS;
   const amount = ethers.parseEther('1');
-  // const amount = 0;
   const deadline = Math.floor(Date.now() / 1000) + 3600;
 
   const { aTokenAddress } = await dataProviderContract.getReserveTokensAddresses(WMON_ADDRESS);
@@ -22,8 +22,11 @@ export async function withdrawIPWithPermit() {
   const aTokensBalance = await wipAToken.balanceOf(owner);
   console.log('aTokensBalance:', aTokensBalance.toString());
 
-  //   const approveTx = await wipAToken.approve(WRAPPED_TOKEN_GATEWAYV3_ADDRESS, MAX_UINT_AMOUNT);
-  //   console.log('approveTx hash:', approveTx.hash);
+  const approveTx = await wipAToken.approve(WRAPPED_TOKEN_GATEWAYV3_ADDRESS, MAX_UINT_AMOUNT);
+  const approveReceipt = await approveTx.wait();
+  if (approveReceipt.status === 1) {
+    console.log('approveTx hash:', approveTx.hash);
+  }
 
   const permit = await generatePermit(wipAToken, owner, spender, amount, deadline);
   try {

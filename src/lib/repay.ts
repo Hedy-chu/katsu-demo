@@ -25,5 +25,8 @@ export async function repay() {
     permit.r,
     permit.s,
   );
-  console.log('txHash', tx.hash);
+  const receipt = await tx.wait();
+  if (receipt.status === 1) {
+    console.log('tx hash:', tx.hash);
+  }
 }

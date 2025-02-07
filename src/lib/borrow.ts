@@ -14,5 +14,8 @@ export async function borrow(tokenaddress: string, amount: bigint) {
     throw new Error('Insufficient available borrows');
   }
   const tx = await poolContract.borrow(tokenaddress, amount, RateMode.Variable, 0, signer.address);
-  console.log('tx hash:', tx.hash);
+  const receipt = await tx.wait();
+  if (receipt.status === 1) {
+    console.log('tx hash:', tx.hash);
+  }
 }

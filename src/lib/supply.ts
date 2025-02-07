@@ -13,8 +13,6 @@ not supports:supply
 export async function supplyWithPermit(tokenAddress: string, amount: bigint) {
   const owner = signer.address;
   const spender = POOL_ADDRESS;
-  // const amount = ethers.parseUnits('10', 18);
-  // const amount = 0;
   const referralCode = 0;
   const deadline = Math.floor(Date.now() / 1000) + 3600;
   const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, signer) as any;
@@ -23,7 +21,6 @@ export async function supplyWithPermit(tokenAddress: string, amount: bigint) {
   let tx;
 
   try {
-    // tx = await Pool.supplyWithPermit(DAI_ADDRESS, amount, owner, referralCode, deadline, permit.v, permit.r, permit.s);
     tx = await poolContract.supplyWithPermit(
       tokenAddress,
       amount,
