@@ -1,6 +1,6 @@
 import { Contract, parseEther } from 'ethers';
 
-import { erc20Abi, signer, PULL_REWARDS_TRANSFER_STRATEGY, emissionManagerContract } from '@/utils/config';
+import { PULL_REWARDS_TRANSFER_STRATEGY, erc20Abi, signer, emissionManagerContract } from '@/utils/config';
 import { config } from '@/utils/insentiveConfig';
 
 export const CRV_ADDRESS = process.env.CRV_ADDRESS || '';
@@ -9,8 +9,8 @@ export const WIP_ATOKEN = process.env.WIP_ATOKEN || '';
 export const DAI_ATOKEN = process.env.DAI_ATOKEN || '';
 export const configInsentiveAssets = async () => {
   // step1: set emission admin
-  // await emissionManagerContract.setEmissionAdmin(CRV_ADDRESS, signer.address);
-  // await emissionManagerContract.setEmissionAdmin(REW_ADDRESS, signer.address);
+  await emissionManagerContract.setEmissionAdmin(CRV_ADDRESS, signer.address);
+  await emissionManagerContract.setEmissionAdmin(REW_ADDRESS, signer.address);
 
   // step2: configure assets
   console.log('configInsentiveAssets');
@@ -21,8 +21,8 @@ export const configInsentiveAssets = async () => {
   // step3: approve reward token to PullRewardsTransferStrategy
   const rewContract = new Contract(REW_ADDRESS, erc20Abi, signer) as any;
   const crvContract = new Contract(CRV_ADDRESS, erc20Abi, signer) as any;
-  const approve1 = await rewContract.approve(PULL_REWARDS_TRANSFER_STRATEGY, parseEther('30000'));
-  const approve2 = await crvContract.approve(PULL_REWARDS_TRANSFER_STRATEGY, parseEther('30000'));
+  const approve1 = await rewContract.approve(PULL_REWARDS_TRANSFER_STRATEGY, parseEther('20000'));
+  const approve2 = await crvContract.approve(PULL_REWARDS_TRANSFER_STRATEGY, parseEther('20000'));
   console.log('approve1 hash:', approve1.hash);
   console.log('approve2 hash:', approve2.hash);
 };

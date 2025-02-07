@@ -7,7 +7,7 @@ import { RateMode } from '@/utils/types';
 export async function repay() {
   const owner = signer.address;
   const spender = POOL_ADDRESS;
-  const amount = ethers.parseUnits('100.0', 8);
+  const amount = ethers.parseUnits('11', 18);
   const deadline = Math.floor(Date.now() / 1000) + 3600;
 
   const permit = await generatePermit(tokenContract, owner, spender, amount, deadline);

@@ -1,6 +1,5 @@
 // import { parseUnits } from 'ethers';
 // import { getLatestRewardsClaimed } from '@/lib/getLatestRewardsClaimed';
-// import { ethers } from 'ethers';
 
 // import { borrow } from '@/lib/borrow';
 // import { repay } from '@/lib/repay';
@@ -17,10 +16,12 @@
 // import { claimReward } from '@/lib/claimReward';
 // import { claimAllReward } from '@/lib/claimAllRewards';
 // import { calculateDAIIncentiveAPR } from '@/lib/calculateAssetIncentiveAPR';
-import { liquidation } from '@/lib/liquidation';
+// import { liquidation } from '@/lib/liquidation';
+// import { faucet } from '@/lib/faucet';
+// import { DAI_ADDRESS } from '@/utils/config';
 
-// supplyWithPermit(DAI_ADDRESS, ethers.parseUnits('10', 18));
-// borrow(DAI_ADDRESS, parseUnits('1', 10));
+// supplyWithPermit(DAI_ADDRESS, parseUnits('10', 18));
+// borrow(DAI_ADDRESS, parseUnits('1', 18));
 // repay();
 // supplyIP();
 // borrowIP();
@@ -35,4 +36,5 @@ import { liquidation } from '@/lib/liquidation';
 // getLatestRewardsClaimed(signer.address);
 // calculateDAIIncentiveAPR();
 // preLiquidation();
-liquidation();
+// liquidation();
+// faucet(CRV_ADDRESS, signer.address, parseUnits('10000', 18));

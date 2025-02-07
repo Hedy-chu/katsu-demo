@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 
 import {
   signer,
-  WIP_ADDRESS,
+  WMON_ADDRESS,
   wrappedTokenGatewayContract,
   WRAPPED_TOKEN_GATEWAYV3_ADDRESS,
   dataProviderContract,
@@ -17,7 +17,7 @@ export async function withdrawIPWithPermit() {
   // const amount = 0;
   const deadline = Math.floor(Date.now() / 1000) + 3600;
 
-  const { aTokenAddress } = await dataProviderContract.getReserveTokensAddresses(WIP_ADDRESS);
+  const { aTokenAddress } = await dataProviderContract.getReserveTokensAddresses(WMON_ADDRESS);
   const wipAToken = new ethers.Contract(aTokenAddress, aTokenAbi, signer) as any;
   const aTokensBalance = await wipAToken.balanceOf(owner);
   console.log('aTokensBalance:', aTokensBalance.toString());
@@ -28,7 +28,7 @@ export async function withdrawIPWithPermit() {
   const permit = await generatePermit(wipAToken, owner, spender, amount, deadline);
   try {
     const tx = await wrappedTokenGatewayContract.withdrawIPWithPermit(
-      WIP_ADDRESS,
+      WMON_ADDRESS,
       amount,
       owner,
       deadline,

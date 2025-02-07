@@ -4,8 +4,8 @@ import { signer, wrappedTokenGatewayContract, POOL_ADDRESS, provider } from '@/u
 
 export async function supplyIP() {
   const owner = signer.address;
-  const depositSize = ethers.parseEther('4');
-  const tx = await wrappedTokenGatewayContract.depositIP(POOL_ADDRESS, owner, '0', {
+  const depositSize = ethers.parseEther('1');
+  const tx = await wrappedTokenGatewayContract.depositETH(POOL_ADDRESS, owner, '0', {
     value: depositSize,
   });
   console.log('tx hash:', tx.hash);

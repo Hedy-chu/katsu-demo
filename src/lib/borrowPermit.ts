@@ -3,14 +3,14 @@ import { ethers } from 'ethers';
 import {
   signer,
   dataProviderContract,
-  WIP_ADDRESS,
+  WMON_ADDRESS,
   variableDebtTokenAbi,
   WRAPPED_TOKEN_GATEWAYV3_ADDRESS,
 } from '@/utils/config';
 import { generateDelegationPermit } from '@/utils/gennerateDelegationWithSig';
 
 export async function borrowPermit() {
-  const { variableDebtTokenAddress } = await dataProviderContract.getReserveTokensAddresses(WIP_ADDRESS);
+  const { variableDebtTokenAddress } = await dataProviderContract.getReserveTokensAddresses(WMON_ADDRESS);
   const varDebtToken = new ethers.Contract(variableDebtTokenAddress, variableDebtTokenAbi, signer) as any;
   const deadline = Math.floor(Date.now() / 1000) + 36000;
 
